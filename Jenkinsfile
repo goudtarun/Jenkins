@@ -17,6 +17,7 @@ pipeline {
             steps {
                 sh "cd /home/ubuntu/ansible/"
                 sh "sudo chmod 600 /home/ubuntu/ansible/tarun.pem"
+                sh "pwd"
                 sh "ansible test -m ping"
             }
         }
