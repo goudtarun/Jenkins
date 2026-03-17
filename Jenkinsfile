@@ -30,7 +30,7 @@ pipeline {
             steps{
                 dir("docker"){
                     git url: "https://github.com/goudtarun/docker.git", branch: "main"
-                    sh "rsync -av /home/ubuntu/workspace/First-pipeline/docker/beginner/ /home/ubuntu/docker"
+                    sh "rsync -av /home/ubuntu/workspace/second-pipeline/docker/beginner/ /home/ubuntu/docker"
                     sh "pwd"
                 }
             }
@@ -38,12 +38,12 @@ pipeline {
         stage ("docker-build"){
             steps{
                 sh "cd /home/ubuntu/docker/"
-                sh "docker build -t dockci:v1 /home/ubuntu/docker/"
+                sh "docker build -t dockci:v2 /home/ubuntu/docker/"
             }
         }
         stage ("Docker-deploy"){
             steps{
-                sh "docker container run -itd -p 8081:80 --name firstcidoc dockci:v1"
+                sh "docker container run -itd -p 8081:80 --name firstcidoc dockci:v2"
             }
         }
         
@@ -51,8 +51,8 @@ pipeline {
             steps{
                 withCredentials ([usernamePassword(credentialsId : 'dockercred', usernameVariable: 'Dockerhubuser', passwordVariable: 'Dockerhubpassword')]){
                     sh "docker login -u ${env.Dockerhubuser} -p ${env.Dockerhubpassword}"
-                    sh "docker image tag dockci:v1 ${env.Dockerhubuser}/dockci:v1"
-                    sh "docker push  ${env.Dockerhubuser}/dockci:v1"
+                    sh "docker image tag dockci:v1 ${env.Dockerhubuser}/dockci:v2"
+                    sh "docker push  ${env.Dockerhubuser}/dockci:v2"
                 }
             }
         }
