@@ -17,7 +17,7 @@ pipeline {
             steps {
                 sh "cd /home/ubuntu/ansible/"
                 sh "sudo chmod 600 /home/ubuntu/ansible/tarun.pem"
-                sh "ansible dev -m ping"
+                sh "ansible test -m ping"
             }
         }
         stage ("build"){
