@@ -8,7 +8,7 @@ pipeline {
                 dir ("ansible"){
                     echo "Cloning the code from github"
                     git url: "https://github.com/goudtarun/ansible.git", branch: "main"
-                    sh "rsync -av /home/ubuntu/workspace/First-pipeline/ansible/ /home/ubuntu/ansible"
+                    sh "rsync -av /home/ubuntu/workspace/second-pipeline/ansible/ /home/ubuntu/ansible"
                     echo "The repo is cloned succesfully"
                 }
             }
